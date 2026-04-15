@@ -1,51 +1,173 @@
-<<<<<<< HEAD
-# ecommerce-assignment
-ecommerce-assignment
-=======
-# Getting Started with Create React App
+# Ecommerce Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern ecommerce application built with **React + TypeScript** featuring product listing, filtering, cart management, and end-to-end testing using Playwright.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Setup & Run
 
-### `npm start`
+### 1. Clone Repository
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+git clone https://github.com/Sandesh2704/ecommerce-assignment.git
+cd ecommerce-assignment
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 2. Install Dependencies
 
-### `npm test`
+```bash
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 3. Run Application
 
-### `npm run build`
+```bash
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+App runs at:
+👉 [http://localhost:3000](http://localhost:3000)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🌐 API Usage (IMPORTANT)
 
-### `npm run eject`
+This project uses external API:
+👉 [https://api.escuelajs.co/api/v1](https://api.escuelajs.co/api/v1)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Key Points:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Products are fetched dynamically from API
+* Categories are fetched dynamically
+* Filtering is **NOT done locally**
+* On filter change → API is called again
+* Pagination also uses API (`offset`, `limit`)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+This follows assignment requirement:
+✔ Dynamic data fetching
+✔ No local filtering
+✔ Always API-driven updates
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
 
-## Learn More
+## 📱 Responsiveness
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* Fully responsive design using Tailwind CSS
+* Mobile + Tablet + Desktop supported
+* Separate UI behavior handled for:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
->>>>>>> b4a6164 (initial commit)
+  * Product images (mobile slider / desktop gallery)
+  * Layout adjustments
+
+---
+
+## 🧪 Testing (Playwright)
+
+This project uses **Playwright** for end-to-end testing.
+
+### Install Browsers
+
+```bash
+npx playwright install
+```
+
+### Run Tests
+
+```bash
+npx playwright test
+```
+
+### Run with UI
+
+```bash
+npx playwright test --ui
+```
+
+---
+
+## ✅ Test Coverage
+
+### Home Page
+
+* Page load
+* Product listing
+* Navigation to product page
+* Add to cart
+* Category filtering (API-based)
+* Pagination (API-based)
+
+### Product Page
+
+* Product load from API
+* Quantity increment/decrement
+* Add to cart
+* Tabs switching
+* Image navigation
+
+### Cart Page
+
+* Add item to cart
+* Increase/decrease quantity
+* Remove item
+* Empty cart state
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── api/                # API calls
+├── components/         # Reusable components
+│   ├── Header.tsx
+│   ├── Footer.tsx
+│   ├── ProductCard.tsx
+│   ├── Modal.tsx
+├── context/            # Cart state (React Context)
+├── pages/
+│   ├── HomePage.tsx
+│   ├── ProductDetailPage.tsx
+│   ├── CartPage.tsx
+├── section/            # Feature sections
+│   ├── ProductImages.tsx
+│   ├── ProductInfo.tsx
+│   ├── ProductDetailsSkeleton.tsx
+├── tests/              # Playwright tests
+│   ├── home.spec.ts
+│   ├── product.spec.ts
+│   ├── cart.spec.ts
+├── types/
+```
+
+---
+
+## 🛠 Tech Stack
+
+* React
+* TypeScript
+* Tailwind CSS
+* Playwright (E2E Testing)
+
+---
+
+## ⚠️ Notes
+
+* Cart is managed using React Context (not persisted)
+* API dependency may cause slight delays
+* Tests rely on `data-testid` selectors
+
+---
+
+## ✅ Submission Compliance
+
+✔ Uses API for data fetching
+✔ No local filtering (API-based filtering)
+✔ Fully responsive UI
+✔ End-to-end test coverage
+✔ Proper README with setup + testing instructions
+
+---
+
+## 👤 Author
+
+Sandesh Deshmukh

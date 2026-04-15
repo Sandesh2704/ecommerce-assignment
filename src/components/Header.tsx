@@ -29,7 +29,7 @@ export default function Header() {
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <Link       title={`Home`} to={`/`} className="flex items-center space-x-2">
-             Assitment
+             Assignment Store
             </Link>
 
             <nav className="hidden lg:flex items-center space-x-8">

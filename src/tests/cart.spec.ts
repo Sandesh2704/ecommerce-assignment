@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test('cart page loads with items', async ({ page }) => {
   await page.goto('/');
 
-  // add item first
+
   await page.locator('[data-testid="add-to-cart"]').first().click();
 
   await page.locator('[data-testid="cart-icon"]').click();

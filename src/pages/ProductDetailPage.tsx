@@ -1,6 +1,6 @@
 
 
-import { useState, useEffect, } from 'react';
+import { useState, useEffect, useCallback, } from 'react';
 import { Star, Shield, Truck, RotateCcw, Check, Minus, Plus } from 'lucide-react';
 import { Product } from '../types/types';
 import ProductCard from '../components/ProductCard';
@@ -38,35 +38,37 @@ export function ProductDetailsPage() {
   const [error, setError] = useState<string | null>(null);
   const [buttonKey, setButtonKey] = useState(0); // Add key for forcing re-render
 
-  const fetchProductData = async () => {
-    if (!id) return;
-    setLoading(true);
-    setError(null);
+const fetchProductData = useCallback(async () => {
+  if (!id) return;
+  setLoading(true);
+  setError(null);
 
-    try {
-      const productData = await api.getProduct(Number(id));
-      setProduct(productData);
-      setButtonKey(prev => prev + 1); // Reset button when product changes
+  try {
+    const productData = await api.getProduct(Number(id));
+    setProduct(productData);
+    setButtonKey(prev => prev + 1);
 
-      if (productData.category?.id) {
-        const productsByCategory = await api.getProductsByCategory(
-          productData.category.id
-        );
-        const filtered = productsByCategory
-          .filter((p) => p.id !== productData.id)
-          .slice(0, 4);
-        setRelatedProducts(filtered);
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load product');
-    } finally {
-      setLoading(false);
+    if (productData.category?.id) {
+      const productsByCategory = await api.getProductsByCategory(
+        productData.category.id
+      );
+
+      const filtered = productsByCategory
+        .filter((p) => p.id !== productData.id)
+        .slice(0, 4);
+
+      setRelatedProducts(filtered);
     }
-  };
+  } catch (err) {
+    setError(err instanceof Error ? err.message : 'Failed to load product');
+  } finally {
+    setLoading(false);
+  }
+}, [id]);
 
-  useEffect(() => {
-    fetchProductData();
-  }, [id,]);
+useEffect(() => {
+  fetchProductData();
+}, [fetchProductData]);
 
   useEffect(() => {
     if (!product) return;

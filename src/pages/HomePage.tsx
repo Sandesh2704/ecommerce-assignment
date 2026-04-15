@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import api from "../api/api";
@@ -17,9 +17,10 @@ export default function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const page = Number(searchParams.get("page")) || 1;
-  const selectedCategories = searchParams.get("categories")
-    ? searchParams.get("categories")!.split(",").map(Number)
-    : [];
+const selectedCategories = useMemo(() => {
+  const raw = searchParams.get("categories");
+  return raw ? raw.split(",").map(Number) : [];
+}, [searchParams]);
 
   const limit = 9;
   const totalPages = Math.ceil(totalCount / limit);
@@ -28,9 +29,7 @@ export default function HomePage() {
     fetchCategories();
   }, []);
 
-  useEffect(() => {
-    loadProducts();
-  }, [searchParams]);
+
 
   const fetchCategories = async () => {
     try {
@@ -43,28 +42,36 @@ export default function HomePage() {
     }
   };
 
-  const loadProducts = async () => {
-    setIsLoadingProducts(true);
-    try {
-      const data = await api.getProducts({
-        categories: selectedCategories,
-        page,
-        limit,
-      });
-      setProducts(data);
+const loadProducts = useCallback(async () => {
+  setIsLoadingProducts(true);
 
-      const allProducts = await api.getProducts({
-        categories: selectedCategories,
-        page: 1,
-        limit: 999,
-      });
-      setTotalCount(allProducts.length);
-    } catch (err) {
-      console.error('Error loading products:', err);
-    } finally {
-      setIsLoadingProducts(false);
-    }
-  };
+  try {
+    const data = await api.getProducts({
+      categories: selectedCategories,
+      page,
+      limit,
+    });
+
+    setProducts(data);
+
+    const allProducts = await api.getProducts({
+      categories: selectedCategories,
+      page: 1,
+      limit: 999,
+    });
+
+    setTotalCount(allProducts.length);
+  } catch (err) {
+    console.error("Error loading products:", err);
+  } finally {
+    setIsLoadingProducts(false);
+  }
+}, [selectedCategories, page]);
+
+
+useEffect(() => {
+  loadProducts();
+}, [loadProducts]);
 
   const toggleCategory = (id: number) => {
     let updated = [...selectedCategories];
