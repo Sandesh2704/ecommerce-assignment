@@ -75,7 +75,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return subtotal > 50 ? 0 : 10;
   };
 
-  const cartCount = items.reduce((count, item) => count + item.quantity, 0);
+  const cartCount = items.length;
 
   return (
     <CartContext.Provider
