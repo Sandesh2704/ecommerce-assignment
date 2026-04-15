@@ -6,7 +6,7 @@ import { Product } from '../types/types';
 import ProductCard from '../components/ProductCard';
 import { AddToCartButton } from '../components/AddToCartButton';
 import api from '../api/api';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Container } from '../components/Container';
 import ProductDetailsSkeleton from '../section/ProductDetailsSkeleton';
 import ProductImages from '../section/ProductImages';
@@ -130,9 +130,9 @@ useEffect(() => {
       <div className="bg-white border-b border-gray-200">
         <Container className="px-4 py-3">
           <nav className="flex items-center space-x-2 text-sm">
-            <a href="/" className="text-gray-700 hover:text-gray-900">
+            <Link to="/" className="text-gray-700 hover:text-gray-900">
               Home
-            </a>
+            </Link>
             <span className="text-gray-400">/</span>
             <span className="text-gray-900 font-medium line-clamp-1">{product.title}</span>
           </nav>
@@ -173,9 +173,9 @@ useEffect(() => {
                   </div>
                   <span className="font-semibold text-lg">6.0</span>
                 </div>
-                <a href="#reviews" className="text-blue-600 hover:underline text-sm">
+                <span className="text-blue-600 hover:underline text-sm">
                   7 reviews
-                </a>
+                </span>
               </div>
 
               {/* Price Section */}

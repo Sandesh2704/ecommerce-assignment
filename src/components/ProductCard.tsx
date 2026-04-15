@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { AddToCartButton } from './AddToCartButton';
 import { Product } from '../types/types';
+import { Link } from 'react-router-dom';
 
 interface ProductCardProps {
   product: Product;
@@ -48,8 +49,8 @@ export function ProductCard({
     onMouseEnter={() => setIsHovering(true)}
     onMouseLeave={() => setIsHovering(false)}
   >
-    <a
-      href={`/product/${product.id}`}
+    <Link
+      to={`/product/${product.id}`}
       className="flex flex-col h-full"
     >
       {/* Fixed Image Height */}
@@ -94,7 +95,7 @@ export function ProductCard({
           {formatCurrency(product.price)}
         </div>
       </div>
-    </a>
+    </Link>
 
     {/* Button always aligned */}
     <div className="px-4 pb-4 mt-auto">
