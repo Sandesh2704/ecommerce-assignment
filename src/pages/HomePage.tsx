@@ -174,7 +174,7 @@ useEffect(() => {
                   ))}
                 </div>
               ) : (
-                <div className="space-y-2">
+             <div className="space-y-2 max-h-[450px] overflow-y-auto pr-2 custom-scroll">
                   {categories.map((category) => (
                     <label key={category.id} className="flex items-center gap-3 cursor-pointer p-2 hover:bg-gray-50 rounded-lg transition-colors">
                       <input

@@ -38,10 +38,6 @@ export default function Header() {
                 Home
               </Link>
 
-        
-              <Link        title={`About`} to={`/about`} className="text-sm font-medium text-gray-700 hover:text-black transition-colors">
-                About
-              </Link>
             </nav>
 
             {/* Right Side Actions */}

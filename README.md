@@ -4,6 +4,12 @@ A modern ecommerce application built with **React + TypeScript** featuring produ
 
 ---
 
+
+
+### Live Preview
+👉 https://ecommerce-assignment-coral.vercel.app
+
+
 ## 🚀 Setup & Run
 
 ### 1. Clone Repository
@@ -33,7 +39,7 @@ App runs at:
 ## 🌐 API Usage (IMPORTANT)
 
 This project uses external API:
-👉 [https://api.escuelajs.co/api/v1](https://api.escuelajs.co/api/v1)
+👉 [https://fakeapi.platzi.com](https://fakeapi.platzi.com)
 
 ### Key Points:
 

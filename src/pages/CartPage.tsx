@@ -104,8 +104,8 @@ const formatCurrency = (amount: number) => {
                         </p>
                       </div>
 
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center border-2 border-gray-300 rounded-lg">
+                      <div className="flex flex-col md:flex-row md:items-center gap-4 md:justify-between">
+                        <div className="flex items-center border-2 w-fit border-gray-300 rounded-lg">
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
                             disabled={item.quantity <= 1}
@@ -128,8 +128,8 @@ const formatCurrency = (amount: number) => {
                           </button>
                         </div>
 
-                        <div className="text-right">
-                          <p className="text-sm text-gray-600 mb-1">Item Total</p>
+                        <div className="md:text-right">
+                          <p className="text-sm text-gray-600 mb-1">Total</p>
                           <p className="text-xl font-bold text-gray-900">
                             {formatCurrency(item.totalPrice)}
                           </p>
@@ -138,6 +138,8 @@ const formatCurrency = (amount: number) => {
                     </div>
                   </div>
                 ))}
+
+
               </div>
             </div>
 

@@ -6,16 +6,15 @@ import { Product } from '../types/types';
 interface ProductCardProps {
   product: Product;
   tall?: boolean;
-  viewMode?: 'grid' | 'list';
 }
 
 export function ProductCard({
   product,
   tall = true,
-  viewMode = 'grid',
 }: ProductCardProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
 
   const productImages =
     product.images && product.images.length > 0
@@ -23,16 +22,16 @@ export function ProductCard({
       : ['/assets/image.webp'];
 
   useEffect(() => {
-    if (!isHovering || viewMode === 'list' || productImages.length <= 1) return;
+    if (!isHovering  || productImages.length <= 1) return;
 
     const interval = setInterval(() => {
       setCurrentImageIndex(
         (prev) => (prev + 1) % productImages.length
       );
-    }, 1000);
+    }, 850);
 
     return () => clearInterval(interval);
-  }, [isHovering, viewMode, productImages.length]);
+  }, [isHovering, productImages.length]);
 
   useEffect(() => {
     if (!isHovering) setCurrentImageIndex(0);
@@ -40,77 +39,7 @@ export function ProductCard({
 
   const formatCurrency = (price: number) => `$${price}`;
 
-  if (viewMode === 'list') {
-    return (
-      <div  data-testid="product-card" className="group bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-xl transition-all duration-300">
-        <div className="flex gap-6 p-6">
-          <div className="flex gap-3">
-            <div className="flex flex-col gap-2">
-              {productImages.map((img, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentImageIndex(index)}
-                  className={`relative w-16 h-16 rounded-md overflow-hidden border-2 ${
-                    currentImageIndex === index
-                      ? 'border-black shadow-md'
-                      : 'border-gray-200 hover:border-gray-400'
-                  }`}
-                >
-                  <img
-                    src={img}
-                    alt={`${product.title} ${index + 1}`}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                </button>
-              ))}
-            </div>
-
-            <div className="relative w-80 h-96 bg-gray-100 rounded-lg overflow-hidden">
-              <img
-                src={productImages[currentImageIndex]}
-                alt={product.title}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-
-              {productImages.length > 1 && (
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/70 text-white px-3 py-1 rounded-full text-xs">
-                  {currentImageIndex + 1} / {productImages.length}
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="flex-1 flex flex-col justify-between py-2">
-            <a href={`/product/${product.id}`} className="flex-1">
-              <div>
-                <p className="text-xs text-gray-500 mb-2 uppercase tracking-wide">
-                  {product.category?.name}
-                </p>
-
-                <h2 className="font-semibold text-xl text-black mb-3 line-clamp-2">
-                  {product.title}
-                </h2>
-
-                <p className="text-sm text-gray-600 mb-4 line-clamp-3">
-                  {product.description}
-                </p>
-              </div>
-            </a>
-
-            <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-              <span className="text-3xl font-bold text-black">
-                {formatCurrency(product.price)}
-              </span>
-
-              <AddToCartButton product={product} quantity={1}>
-                Add to cart
-              </AddToCartButton>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+ 
 
   return (
   <div
@@ -125,10 +54,19 @@ export function ProductCard({
     >
       {/* Fixed Image Height */}
       <div className="relative h-[280px] bg-gray-100 overflow-hidden flex-shrink-0">
+         {/* Skeleton */}
+  {!imgLoaded && (
+    <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+  )}
         <img
           src={productImages[currentImageIndex]}
           alt={product.title}
-          className="w-full h-full object-cover"
+          className={`w-full h-full object-cover transition-opacity duration-300 ${
+      imgLoaded ? "opacity-100" : "opacity-0"
+    }`}
+           loading="lazy"
+    onLoad={() => setImgLoaded(true)}
+    onError={() => setImgLoaded(true)}
         />
 
         {productImages.length > 1 && isHovering && (
