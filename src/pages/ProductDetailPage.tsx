@@ -279,6 +279,9 @@ useEffect(() => {
                 </div>
 
                 {/* Fixed AddToCartButton with key prop */}
+                <div className='flex flex-col gap-2'>
+
+               
                 <AddToCartButton 
                   testId="product-add-to-cart"
                   key={`${product.id}-${buttonKey}`} // Force re-render when product changes
@@ -288,10 +291,10 @@ useEffect(() => {
                   Add to Cart
                 </AddToCartButton>
 
-                <button onClick={()=>toggleWishlist(product)}>
+                <Button onClick={()=>toggleWishlist(product)} variant='secondary'>
   Add To WishList
-                </button>
-
+                </Button>
+</div>
 
 
                 <div className="mt-6 pt-6 border-t space-y-3 text-sm">
