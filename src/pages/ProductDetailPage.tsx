@@ -13,6 +13,7 @@ import ProductImages from '../section/ProductImages';
 import ProductInfo from '../section/ProductInfo';
 import { Button } from '../components/Button';
 import { useCart } from '../context/CartContext';
+import  { toggleWishlist } from '../customhook/useWishlist';
 
 
 const ErrorMessage = ({ message, onRetry }: { message: string; onRetry: () => void }) => (
@@ -286,6 +287,12 @@ useEffect(() => {
                 >
                   Add to Cart
                 </AddToCartButton>
+
+                <button onClick={()=>toggleWishlist(product)}>
+  Add To WishList
+                </button>
+
+
 
                 <div className="mt-6 pt-6 border-t space-y-3 text-sm">
                   <div className="flex items-center text-gray-700">

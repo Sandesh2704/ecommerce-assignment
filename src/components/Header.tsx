@@ -9,7 +9,6 @@ export default function Header() {
 
 
 
-
  
 
 
@@ -43,9 +42,7 @@ export default function Header() {
             {/* Right Side Actions */}
             <div className="flex items-center space-x-4">
 
-
-              {/* Cart */}
-              <Link
+   <Link
               to="/cart"
                 aria-label="Cart"
 data-testid="cart-icon" 
@@ -60,6 +57,21 @@ data-testid="cart-icon"
                     {cartCount}
                   </span>
                 )}
+              </Link>
+
+
+              {/* Cart */}
+              <Link
+              to="/wishlist"
+                aria-label="Cart"
+data-testid="cart-icon" 
+                className="p-2 text-gray-700 hover:text-black transition-colors relative"
+                data-cart-target
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+          
               </Link>
 
              
